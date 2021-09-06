@@ -1,41 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button} from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import {get} from './utils/fetch';
 export default function App() {
 
   const [email, setEmail] = React.useState('')
+  const [messages, getMessages] = React.useState([])
   const handleClick = React.useCallback(
     () => {
       const params = {
-        f: 'get_email_address',
+        // this is an if statement in JS cause it's stupid, email? is if there is an email in this case F is function from the API
+        f: email ? 'get_email_address':'check_email',
         ip: '127.0.0.1' ,
         agent: 'firefox',
       }
       get('http://api.guerrillamail.com/ajax.php', params) 
       .then((Data) => {
         setEmail(Data.email_addr)
+        getMessages(Data.check_email)
+      })
+      .catch((error) => {
+        console.log(error)
       })
     },
-  )
-  const handleCopy = React.useCallback(
-    () => {
-      Clipboard.setString(email)
-    }
   )
 
 /*
 
 Two tabs at top
-
-TAB 1 :{
-
-Text
-copiable field
-Email from api comes in here
-
-button
-This button reaches out to Gurilla API and gets email box 
 
 Tick box
 if checked every 1  or 5  min send add time to API
@@ -51,6 +43,7 @@ Tab 2: {
   return (
     <View style={styles.container}>
       <Text style={styles.emailContainer} selectable>{email}</Text>
+      <Text style={styles.emailContainer} selectable>{messages}</Text>
       <Button title="Get Email" onPress={handleClick} />
       <StatusBar style="auto" />
     </View>
