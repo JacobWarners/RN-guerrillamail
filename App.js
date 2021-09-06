@@ -10,6 +10,31 @@ export default function App() {
     [count]
   )
 
+/*
+
+Two tabs at top
+
+TAB 1 :{
+
+Text
+copiable field
+Email from api comes in here
+
+button
+This button reaches out to Gurilla API and gets email box 
+
+Tick box
+if checked every 1  or 5  min send add time to API
+if unchecked let expire
+}
+
+Tab 2: {
+  get email from server from the box that exists
+}
+*/
+
+
+
   return (
     <View style={styles.container}>
       <Text>This is a React Native App!</Text>
