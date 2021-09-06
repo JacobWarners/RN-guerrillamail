@@ -1,13 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button} from 'react-native';
+import {get} from './utils/fetch';
 export default function App() {
-  const [count, setCount] = React.useState(0)
 
+  const [email, setEmail] = React.useState('')
   const handleClick = React.useCallback(
-    () => { setCount(count+1) },
-    [count]
+    () => {
+      const params = {
+        f: 'get_email_address',
+        ip: '127.0.0.1' ,
+        agent: 'firefox',
+      }
+      get('http://api.guerrillamail.com/ajax.php', params) 
+      .then((Data) => {
+        setEmail(Data.email_addr)
+      })
+    },
+  )
+  const handleCopy = React.useCallback(
+    () => {
+      Clipboard.setString(email)
+    }
   )
 
 /*
@@ -34,12 +48,10 @@ Tab 2: {
 */
 
 
-
   return (
     <View style={styles.container}>
-      <Text>This is a React Native App!</Text>
-      <Button title="count" onPress={handleClick} />
-      <Text>{`Clicked ${count} time(s).`}</Text>
+      <Text style={styles.emailContainer} selectable>{email}</Text>
+      <Button title="Get Email" onPress={handleClick} />
       <StatusBar style="auto" />
     </View>
   )
@@ -51,4 +63,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  emailContainer:{
+    padding: 8,
+  }
 });
