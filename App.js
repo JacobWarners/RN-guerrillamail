@@ -5,24 +5,40 @@ import {get} from './utils/fetch';
 export default function App() {
 
   const [email, setEmail] = React.useState('')
-  const [messages, getMessages] = React.useState([])
-  const handleClick = React.useCallback(
+  const [messages, setMessages] = React.useState([])
+
+  const handleNewEmailAddress = React.useCallback(
     () => {
       const params = {
-        // this is an if statement in JS cause it's stupid, email? is if there is an email in this case F is function from the API
-        f: email ? 'get_email_address':'check_email',
+        f: 'get_email_address',
         ip: '127.0.0.1' ,
         agent: 'firefox',
       }
+
       get('http://api.guerrillamail.com/ajax.php', params) 
-      .then((Data) => {
-        setEmail(Data.email_addr)
-        getMessages(Data.check_email)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+        .then((data) => {
+          setEmail(data.email_addr)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
+    []
+  )
+
+  const handleFetchEmails = React.useCallback(
+    () => {
+      const params = {
+        f: 'check_email',
+        seq: 0,
+      }
+
+      get('http://api.guerrillamail.com/ajax.php', params)
+        .then((data) => {
+          setMessages(data.list)
+        })
+    },
+    []
   )
 
 /*
@@ -43,8 +59,18 @@ Tab 2: {
   return (
     <View style={styles.container}>
       <Text style={styles.emailContainer} selectable>{email}</Text>
-      <Text style={styles.emailContainer} selectable>{messages}</Text>
-      <Button title="Get Email" onPress={handleClick} />
+      <Text style={styles.emailContainer} selectable>
+        {`You have ${messages.length} Emails.`}
+      </Text>
+      {
+        email
+          ? (
+            <Button title="Fetch Emails" onPress={handleFetchEmails} />
+          )
+          : (
+            <Button title="Generate Email" onPress={handleNewEmailAddress} />
+            )
+      }
       <StatusBar style="auto" />
     </View>
   )
