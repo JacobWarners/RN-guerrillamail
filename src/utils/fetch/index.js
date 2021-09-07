@@ -27,10 +27,10 @@ class FetchError extends Error {
 }
 
 function get(url = '', params = {}, config = {}) {
-  const parameters = qs.stringify(params)
+  const parameters = qs.stringify(params, { addQueryPrefix: true })
+
   return new Promise((resolve, reject) => {
-    const paramString = parameters ? `?${parameters}` : ''
-    fetch(`${url}${paramString}`, {
+    fetch(`${url}${parameters}`, {
       method: 'GET',
       ...config,
       headers: {
@@ -45,11 +45,11 @@ function get(url = '', params = {}, config = {}) {
         return response.json()
       })
       .then((data) => {
-        log(`GET ${url}${paramString}\nReceived Data:`, data)
+        log(`GET ${url}${parameters}\nReceived Data:`, data)
         resolve(data)
       })
       .catch((error) => {
-        logError(`GET ${url}${paramString}`, error)
+        logError(`GET ${url}${parameters}`, error)
         reject(error)
       })
   })

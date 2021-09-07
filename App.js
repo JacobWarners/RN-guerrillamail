@@ -1,47 +1,26 @@
 import * as React from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View, Button } from 'react-native'
-import { get } from './utils/fetch'
+import { get } from './src/utils/fetch'
 
 import Router from './src/Router'
+import EmailController from './src/plugins/emails/EmailController'
 
 export default function App() {
-  const [email, setEmail] = React.useState('')
-  const [messages, setMessages] = React.useState([])
+  // const handleFetchEmails = React.useCallback(
+  //   () => {
+  //     const params = {
+  //       f: 'check_email',
+  //       seq: 0,
+  //     }
 
-  const handleNewEmailAddress = React.useCallback(
-    () => {
-      const params = {
-        f: 'get_email_address',
-        ip: '127.0.0.1' ,
-        agent: 'firefox',
-      }
-
-      get('http://api.guerrillamail.com/ajax.php', params) 
-        .then((data) => {
-          setEmail(data.email_addr)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    },
-    []
-  )
-
-  const handleFetchEmails = React.useCallback(
-    () => {
-      const params = {
-        f: 'check_email',
-        seq: 0,
-      }
-
-      get('http://api.guerrillamail.com/ajax.php', params)
-        .then((data) => {
-          setMessages(data.list)
-        })
-    },
-    []
-  )
+  //     get('http://api.guerrillamail.com/ajax.php', params)
+  //       .then((data) => {
+  //         setMessages(data.list)
+  //       })
+  //   },
+  //   []
+  // )
 
 /*
 
@@ -60,20 +39,9 @@ Tab 2: {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.emailContainer} selectable>{email}</Text>
-      <Text style={styles.emailContainer}>
-        {`You have ${messages.length} Emails.`}
-      </Text>
-      {
-        email
-          ? (
-            <Button title="Fetch Emails" onPress={handleFetchEmails} />
-          )
-          : (
-            <Button title="Generate Email" onPress={handleNewEmailAddress} />
-            )
-      }
-      <Router />
+      <EmailController>
+        <Router />
+      </EmailController>
       <StatusBar style="auto" />
     </View>
   )
