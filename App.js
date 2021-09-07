@@ -1,7 +1,9 @@
+import * as React from 'react'
 import { StatusBar } from 'expo-status-bar'
-import React from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
 import { get } from './utils/fetch'
+
+import Router from './src/Router'
 
 export default function App() {
   const [email, setEmail] = React.useState('')
@@ -71,6 +73,7 @@ Tab 2: {
             <Button title="Generate Email" onPress={handleNewEmailAddress} />
             )
       }
+      <Router />
       <StatusBar style="auto" />
     </View>
   )
