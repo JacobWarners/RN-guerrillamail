@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  expo:
+    build: .
+    environment:
+      - "NODE_ENV=development"
+      - "REACT_NATIVE_PACKAGER_HOSTNAME=${REACT_NATIVE_PACKAGER_HOSTNAME}"
+    volumes:
+      - './:/app'
+    networks:
+      - expo_network
+    ports:
+      - 19000:19000
+      - 19002:19002
+
+networks:
+  expo_network:
+    driver: bridge
