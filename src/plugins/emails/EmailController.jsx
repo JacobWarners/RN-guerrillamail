@@ -1,5 +1,6 @@
 import * as React from 'react'
 // import PropTypes from 'prop-types'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { get } from '../../utils/fetch'
 
 import { actions, reducer } from './reducer'
@@ -16,13 +17,8 @@ function EmailController(props) {
     children,
   } = props
 
-  const initialState = React.useMemo(
-    () => ({}), // TODO: persist state and restore here
-    []
-  )
-
   const [apiError, setApiError] = React.useState(null)
-  const [emails, dispatch] = React.useReducer(reducer, initialState)
+  const [emails, dispatch] = React.useReducer(reducer, {})
 
   const createEmailAddress = React.useCallback(
     () => {
@@ -89,6 +85,35 @@ function EmailController(props) {
         })
     },
     []
+  )
+
+  React.useEffect(
+    () => {
+      AsyncStorage.getItem('emails', (error, result) => {
+        if (error) {
+          console.error(error)
+
+          return
+        }
+
+        dispatch({
+          type: actions.INITIALIZE,
+          payload: result,
+        })
+      })
+    },
+    []
+  )
+
+  React.useEffect(
+    () => {
+      AsyncStorage.setItem('emails', emails, (error) => {
+        if (error) {
+          console.error(error)
+        }
+      })
+    },
+    [emails]
   )
 
   const provided = React.useMemo(
