@@ -1,9 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import {get} from './utils/fetch';
-export default function App() {
+import { StatusBar } from 'expo-status-bar'
+import React from 'react'
+import { StyleSheet, Text, View, Button } from 'react-native'
+import { get } from './utils/fetch'
 
+export default function App() {
   const [email, setEmail] = React.useState('')
   const [messages, setMessages] = React.useState([])
 
@@ -75,6 +75,7 @@ Tab 2: {
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -85,4 +86,4 @@ const styles = StyleSheet.create({
   emailContainer:{
     padding: 8,
   }
-});
+})
