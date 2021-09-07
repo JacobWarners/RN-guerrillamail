@@ -59,7 +59,7 @@ Tab 2: {
   return (
     <View style={styles.container}>
       <Text style={styles.emailContainer} selectable>{email}</Text>
-      <Text style={styles.emailContainer} selectable>
+      <Text style={styles.emailContainer}>
         {`You have ${messages.length} Emails.`}
       </Text>
       {
