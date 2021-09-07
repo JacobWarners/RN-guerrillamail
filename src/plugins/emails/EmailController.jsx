@@ -26,6 +26,8 @@ function EmailController(props) {
 
   const createEmailAddress = React.useCallback(
     () => {
+      setApiError(null)
+
       const params = {
         f: 'get_email_address',
         ip: '127.0.0.1' , // TODO: research IP
@@ -58,16 +60,49 @@ function EmailController(props) {
     []
   )
 
+  const fetchEmailList = React.useCallback(
+    (emailAddressId) => {
+      setApiError(null)
+
+      const params = {
+        f: 'check_email',
+        seq: 0,
+      }
+
+      get('http://api.guerrillamail.com/ajax.php', params)
+        .then(
+          (data) => {
+            dispatch({
+              type: actions.UPDATE,
+              payload: {
+                id: emailAddressId,
+                messages: data.list,
+              }
+            })
+          },
+          (error) => {
+            setApiError(error)
+          }
+        )
+        .catch((error) => {
+          console.error(error)
+        })
+    },
+    []
+  )
+
   const provided = React.useMemo(
     () => ({
       apiError,
       emails,
       createEmailAddress,
+      fetchEmailList,
     }),
     [
       apiError,
       emails,
       createEmailAddress,
+      fetchEmailList,
     ]
   )
 

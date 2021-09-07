@@ -8,8 +8,6 @@ import { EmailContext } from '../../plugins/emails'
 function Home(_props) {
   const { emails, createEmailAddress } = React.useContext(EmailContext)
 
-  console.log(emails)
-
   return (
     <View>
       {

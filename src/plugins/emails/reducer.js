@@ -20,6 +20,7 @@ function reducer(state, action) {
       return {
         ...state,
         [id]: {
+          id,
           ...state[id],
           ...rest
         },
