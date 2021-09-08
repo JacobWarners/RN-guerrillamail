@@ -34,8 +34,8 @@ function Inbox(_props) {
         <Text>Back</Text>
       </Link>
       <Text style={styles.header}>Inbox</Text>
-      {emailAddress.messages?.map((email) => (
-        <Text key={email.id}>{email.mail_from}</Text>
+      {emailAddress.messages?.map((message) => (
+        <Text key={message.mail_id}>{message.mail_from}</Text>
       ))}
     </View>
   )
