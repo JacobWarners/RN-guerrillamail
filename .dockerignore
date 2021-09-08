@@ -1,0 +1,5 @@
+.expo
+.git
+.env
+
+docker-compose.yml

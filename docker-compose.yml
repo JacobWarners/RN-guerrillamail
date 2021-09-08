@@ -3,6 +3,7 @@ version: "3"
 services:
   expo:
     build: .
+    user: root
     environment:
       - "NODE_ENV=development"
       - "REACT_NATIVE_PACKAGER_HOSTNAME=${REACT_NATIVE_PACKAGER_HOSTNAME}"

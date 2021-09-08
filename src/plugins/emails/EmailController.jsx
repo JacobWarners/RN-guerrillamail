@@ -33,8 +33,6 @@ function EmailController(props) {
       get('http://api.guerrillamail.com/ajax.php', params)
         .then(
           (data) => {
-            const uuid = Math.floor(Math.random() * 10000000)
-
             dispatch({
               type: actions.UPDATE,
               payload: {
