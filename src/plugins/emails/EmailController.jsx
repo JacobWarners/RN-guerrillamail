@@ -96,7 +96,7 @@ function EmailController(props) {
 
         dispatch({
           type: actions.INITIALIZE,
-          payload: result,
+          payload: JSON.parse(result) ?? {},
         })
       })
     },
@@ -105,7 +105,7 @@ function EmailController(props) {
 
   React.useEffect(
     () => {
-      AsyncStorage.setItem('emails', emails, (error) => {
+      AsyncStorage.setItem('emails', JSON.stringify(emails), (error) => {
         if (error) {
           console.error(error)
         }

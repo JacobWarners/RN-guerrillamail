@@ -1,7 +1,7 @@
 import * as React from 'react'
 // import PropTypes from 'prop-types'
 import { Link } from 'react-router-native'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, StyleSheet } from 'react-native'
 
 import { EmailContext } from '../../plugins/emails'
 
@@ -10,20 +10,29 @@ function Home(_props) {
 
   return (
     <View>
-      {
-        Object.values(emails).map((email) => (
-          <Link to={`/inbox/${email.id}`}>
-            <Text>{email.email_addr}</Text>
-          </Link>
-        ))
-      }
-      <Text>Home</Text>
-      <Button title="Create Email" onPress={createEmailAddress} />
+    <Text style={styles.header}>Home</Text>
+    {
+      Object.values(emails).map((email) => (
+        <Link key={email.id} to={`/inbox/${email.id}`}>
+          <Text>{email.email_addr}</Text>
+        </Link>
+      ))
+    }
     </View>
   )
 }
 
 Home.propTypes = {}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    color: '#fd5150',
+    fontSize: 40,
+  }
+})
 
 export {
   Home as default,

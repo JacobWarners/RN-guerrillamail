@@ -1,7 +1,7 @@
 import * as React from 'react'
 // import PropTypes from 'prop-types'
-import { useParams } from 'react-router-native'
-import { View, Text } from 'react-native'
+import { useParams, Link } from 'react-router-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 import { EmailContext } from '../../plugins/emails'
 
@@ -29,13 +29,30 @@ function Inbox(_props) {
   console.log(emailAddress)
 
   return (
-    <View>
-      <Text>Inbox</Text>
+    <View stlye={styles.container}>
+      <Link to="/">
+        <Text>Back</Text>
+      </Link>
+      <Text style={styles.header}>Inbox</Text>
+      {emailAddress.messages?.map((email) => (
+        <Text key={email.id}>{email.mail_from}</Text>
+      ))}
     </View>
   )
 }
 
 Inbox.propTypes = {}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f6f6f6',
+  },
+  header: {
+    color: '#fd5150',
+    fontSize: 40,
+  }
+})
 
 export {
   Inbox as default,
