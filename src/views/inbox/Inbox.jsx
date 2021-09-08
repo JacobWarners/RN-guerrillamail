@@ -1,11 +1,13 @@
 import * as React from 'react'
 // import PropTypes from 'prop-types'
-import { useParams, Link } from 'react-router-native'
+import { useParams, useHistory } from 'react-router-native'
 import { View, Text, StyleSheet } from 'react-native'
+import { CircleButton } from '../../plugins/buttons'
 
 import { EmailContext } from '../../plugins/emails'
 
 function Inbox(_props) {
+  const history = useHistory()
   const params = useParams()
   const [ready, setReady] = React.useState(false)
 
@@ -26,13 +28,19 @@ function Inbox(_props) {
     ]
   )
 
-  console.log(emailAddress)
+  const handleNavigateToHome = React.useCallback(
+    () => {
+      history.push('/')
+    },
+    [history]
+  )
 
   return (
     <View stlye={styles.container}>
-      <Link to="/">
-        <Text>Back</Text>
-      </Link>
+      <CircleButton
+        onPress={handleNavigateToHome}
+        text="<-"
+      />
       <Text style={styles.header}>Inbox</Text>
       {emailAddress.messages?.map((message) => (
         <Text key={message.mail_id}>{message.mail_from}</Text>
