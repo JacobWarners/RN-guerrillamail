@@ -1,6 +1,12 @@
 import * as React from 'react'
 // import PropTypes from 'prop-types'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import {
+  faCoffee,
+  faArrowLeft,
+  faArrowRight,
+} from '@fortawesome/free-solid-svg-icons'
 
 function CircleButton(props) {
   const {
@@ -10,7 +16,7 @@ function CircleButton(props) {
     onPress = () => {},
     textColor = '#fff',
     fontSize = 20,
-    text = '',
+    icon,
   } = props
 
   const styles = React.useMemo(
@@ -24,7 +30,7 @@ function CircleButton(props) {
         justifyContent: 'center',
         borderRadius: size * 2,
       },
-      text: {
+      icon: {
         color: textColor,
         fontSize,
       },
@@ -38,12 +44,26 @@ function CircleButton(props) {
     ]
   )
 
+  const fontAwesomeIcon = React.useMemo(
+    () => {
+      switch(icon) {
+        case 'arrowLeft':
+          return faArrowLeft
+        case 'arrowRight':
+          return faArrowRight
+        default:
+          return faCoffee
+      }
+    },
+    [icon]
+  )
+
   return (
     <TouchableOpacity
       style={styles.button}
       onPress={onPress}
     >
-      <Text style={styles.text}>{text}</Text>
+      <FontAwesomeIcon icon={fontAwesomeIcon} />
     </TouchableOpacity>
   )
 }

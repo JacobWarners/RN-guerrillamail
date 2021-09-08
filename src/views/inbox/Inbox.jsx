@@ -39,7 +39,7 @@ function Inbox(_props) {
     <View stlye={styles.container}>
       <CircleButton
         onPress={handleNavigateToHome}
-        text="<-"
+        icon="arrowLeft"
       />
       <Text style={styles.header}>Inbox</Text>
       {emailAddress.messages?.map((message) => (
