@@ -14,9 +14,9 @@ function CircleButton(props) {
   const {
     margin = 20,
     size = 30,
-    color = colors.palatinatePurple,
+    color = colors.peachPuff,
     onPress = () => {},
-    iconColor = colors.khakiWeb,
+    iconColor = colors.palatinatePurple,
     fontSize = 20,
     icon,
   } = props

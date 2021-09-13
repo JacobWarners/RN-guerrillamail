@@ -1,7 +1,7 @@
 import * as React from 'react'
 // import PropTypes from 'prop-types'
 import { useParams, useHistory } from 'react-router-native'
-import { View, Text, StyleSheet } from 'react-native'
+import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { CircleButton } from 'src/plugins/buttons'
 
 import { EmailContext } from 'src/plugins/emails'
@@ -36,20 +36,29 @@ function Inbox(_props) {
     [history]
   )
 
+  const renderItems = React.useCallback(
+    ({ item }) => (
+      <TouchableOpacity>
+        <Text>{item}</Text>
+      </TouchableOpacity>
+    ),
+    []
+  )
+  console.log(emailAddress.messages)
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <CircleButton
           onPress={handleNavigateToHome}
           icon="arrowLeft"
-          color="transparent"
-          iconColor="#000"
         />
         <Header>Inbox</Header>
       </View>
-      {emailAddress.messages?.map((message) => (
-        <Text key={message.mail_id}>{message.mail_from}</Text>
-      ))}
+      <FlatList
+        data={emailAddress.messages}
+        renderItems={renderItems}
+        keyExtractor={item => item.id}
+      />
     </View>
   )
 }
