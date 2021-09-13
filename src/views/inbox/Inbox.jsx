@@ -19,7 +19,7 @@ function Inbox(_props) {
   React.useEffect(
     () => {
       if (!ready && emailAddress?.email_addr) {
-        fetchEmailList(emailAddress?.id)
+        fetchEmailList(emailAddress?.id, 0)
         setReady(true)
       }
     },
@@ -39,7 +39,7 @@ function Inbox(_props) {
   const renderItems = React.useCallback(
     ({ item }) => (
       <TouchableOpacity>
-        <Text>{item}</Text>
+        <Text>{item.mail_from}</Text>
       </TouchableOpacity>
     ),
     []
@@ -57,7 +57,7 @@ function Inbox(_props) {
       <FlatList
         data={emailAddress.messages}
         renderItems={renderItems}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.mail_id.toString()}
       />
     </View>
   )

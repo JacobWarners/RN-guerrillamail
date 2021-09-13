@@ -55,25 +55,24 @@ function EmailController(props) {
   )
 
   const fetchEmailList = React.useCallback(
-    (emailAddressId) => {
+    (emailAddressId, seq = 0) => {
       setApiError(null)
 
       const params = {
         f: 'check_email',
-        seq: 0,
+        seq,
       }
 
       get('http://api.guerrillamail.com/ajax.php', params)
         .then(
           (data) => {
+            const existingMessages = emails?.[emailAddressId]?.messages ?? []
+
             dispatch({
               type: actions.UPDATE,
               payload: {
                 id: emailAddressId,
-                messages: [
-                  ...emails[emailAddressId]?.messages ?? [],
-                  ...data.list,
-                ],
+                messages: existingMessages.concat(data?.list ?? []),
               }
             })
           },
@@ -85,7 +84,9 @@ function EmailController(props) {
           console.error(error)
         })
     },
-    []
+    [
+      emails,
+    ]
   )
 
   React.useEffect(
