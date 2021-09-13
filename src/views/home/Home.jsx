@@ -2,8 +2,10 @@ import * as React from 'react'
 // import PropTypes from 'prop-types'
 import { View, Button, StyleSheet } from 'react-native'
 
-import Header from 'src/plugins/header'
 import { EmailContext } from 'src/plugins/emails'
+import Header from 'src/plugins/header'
+import { TextButton } from 'src/plugins/buttons'
+
 import AddressList from './AddressList'
 
 function Home(_props) {
@@ -13,7 +15,9 @@ function Home(_props) {
     <View style={styles.container}>
       <Header>Home</Header>
       <AddressList />
-      <Button title="Create Email Address" onPress={createEmailAddress} />
+      <TextButton onPress={createEmailAddress}>
+        Create Email Address
+      </TextButton>
     </View>
   )
 }
@@ -25,10 +29,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  header: {
-    color: '#fd5150',
-    fontSize: 40,
-  }
 })
 
 export {
