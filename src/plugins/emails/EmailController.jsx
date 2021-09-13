@@ -70,7 +70,10 @@ function EmailController(props) {
               type: actions.UPDATE,
               payload: {
                 id: emailAddressId,
-                messages: data.list,
+                messages: [
+                  ...emails[emailAddressId]?.messages ?? [],
+                  ...data.list,
+                ],
               }
             })
           },

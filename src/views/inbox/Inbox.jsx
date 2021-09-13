@@ -2,9 +2,9 @@ import * as React from 'react'
 // import PropTypes from 'prop-types'
 import { useParams, useHistory } from 'react-router-native'
 import { View, Text, StyleSheet } from 'react-native'
-import { CircleButton } from '../../plugins/buttons'
+import { CircleButton } from 'src/plugins/buttons'
 
-import { EmailContext } from '../../plugins/emails'
+import { EmailContext } from 'src/plugins/emails'
 
 function Inbox(_props) {
   const history = useHistory()
@@ -40,6 +40,8 @@ function Inbox(_props) {
       <CircleButton
         onPress={handleNavigateToHome}
         icon="arrowLeft"
+        color="transparent"
+        iconColor="#000"
       />
       <Text style={styles.header}>Inbox</Text>
       {emailAddress.messages?.map((message) => (

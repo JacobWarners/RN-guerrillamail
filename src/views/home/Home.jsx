@@ -1,23 +1,18 @@
 import * as React from 'react'
 // import PropTypes from 'prop-types'
-import { Link } from 'react-router-native'
-import { View, Text, Button, StyleSheet } from 'react-native'
+import { View, Button, StyleSheet } from 'react-native'
 
-import { EmailContext } from '../../plugins/emails'
+import Header from 'src/plugins/header'
+import { EmailContext } from 'src/plugins/emails'
+import AddressList from './AddressList'
 
 function Home(_props) {
-  const { emails, createEmailAddress } = React.useContext(EmailContext)
+  const { createEmailAddress } = React.useContext(EmailContext)
 
   return (
-    <View>
-      <Text style={styles.header}>Home</Text>
-      {
-        Object.values(emails).map((email) => (
-          <Link key={email.id} to={`/inbox/${email.id}`}>
-            <Text>{email.email_addr}</Text>
-          </Link>
-        ))
-      }
+    <View style={styles.container}>
+      <Header>Home</Header>
+      <AddressList />
       <Button title="Create Email Address" onPress={createEmailAddress} />
     </View>
   )
@@ -28,6 +23,7 @@ Home.propTypes = {}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
   },
   header: {
     color: '#fd5150',

@@ -1,6 +1,6 @@
 import * as React from 'react'
 // import PropTypes from 'prop-types'
-import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {
   faCoffee,
@@ -12,9 +12,9 @@ function CircleButton(props) {
   const {
     margin = 20,
     size = 30,
-    color = '#bebebe',
+    color = '#fd5150',
     onPress = () => {},
-    textColor = '#fff',
+    iconColor = '#fff',
     fontSize = 20,
     icon,
   } = props
@@ -31,7 +31,7 @@ function CircleButton(props) {
         borderRadius: size * 2,
       },
       icon: {
-        color: textColor,
+        color: iconColor,
         fontSize,
       },
     }),
@@ -39,7 +39,7 @@ function CircleButton(props) {
       margin,
       size,
       color,
-      textColor,
+      iconColor,
       fontSize,
     ]
   )
@@ -63,7 +63,7 @@ function CircleButton(props) {
       style={styles.button}
       onPress={onPress}
     >
-      <FontAwesomeIcon icon={fontAwesomeIcon} />
+      <FontAwesomeIcon style={styles.icon} icon={fontAwesomeIcon} />
     </TouchableOpacity>
   )
 }
