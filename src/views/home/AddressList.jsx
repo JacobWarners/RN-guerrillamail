@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-native'
 import { FlatList, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { EmailContext } from 'src/plugins/emails'
-import colors from '../../vars/colors'
+import colors from 'src/vars/colors'
 
 function AddressList(_props) {
   const history = useHistory()

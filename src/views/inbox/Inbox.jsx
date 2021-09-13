@@ -5,6 +5,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { CircleButton } from 'src/plugins/buttons'
 
 import { EmailContext } from 'src/plugins/emails'
+import Header from 'src/plugins/header'
 
 function Inbox(_props) {
   const history = useHistory()
@@ -36,14 +37,16 @@ function Inbox(_props) {
   )
 
   return (
-    <View stlye={styles.container}>
-      <CircleButton
-        onPress={handleNavigateToHome}
-        icon="arrowLeft"
-        color="transparent"
-        iconColor="#000"
-      />
-      <Text style={styles.header}>Inbox</Text>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <CircleButton
+          onPress={handleNavigateToHome}
+          icon="arrowLeft"
+          color="transparent"
+          iconColor="#000"
+        />
+        <Header>Inbox</Header>
+      </View>
       {emailAddress.messages?.map((message) => (
         <Text key={message.mail_id}>{message.mail_from}</Text>
       ))}
@@ -59,8 +62,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#f6f6f6',
   },
   header: {
-    color: '#fd5150',
-    fontSize: 40,
+    flexDirection: 'row',
+    alignItems: 'center',
   }
 })
 

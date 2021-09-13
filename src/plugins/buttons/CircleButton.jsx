@@ -8,13 +8,15 @@ import {
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons'
 
+import colors from 'src/vars/colors'
+
 function CircleButton(props) {
   const {
     margin = 20,
     size = 30,
-    color = '#fd5150',
+    color = colors.palatinatePurple,
     onPress = () => {},
-    iconColor = '#fff',
+    iconColor = colors.khakiWeb,
     fontSize = 20,
     icon,
   } = props
